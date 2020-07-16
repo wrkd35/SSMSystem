@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<!DOCTYPE generatorConfiguration    
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"    
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">    
+<generatorConfiguration>        
+    <classPathEntry  location="E:/SSM/mysql-connector-java-5.1.25-bin.jar"/>    
+    <context id="DB2Tables"  targetRuntime="MyBatis3">    
+        <commentGenerator>    
+            <property name="suppressDate" value="true"/>        
+            <property name="suppressAllComments" value="true"/>    
+        </commentGenerator>       
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost/ssmsystem" userId="root" password="">    
+        </jdbcConnection>    
+        <javaTypeResolver>    
+            <property name="forceBigDecimals" value="false"/>    
+        </javaTypeResolver>       
+        <javaModelGenerator targetPackage="com.itheima.core.po" targetProject="SSMSystem">    
+            <property name="enableSubPackages" value="true"/>    
+            <property name="trimStrings" value="true"/>    
+        </javaModelGenerator>        
+        <sqlMapGenerator targetPackage="com.itheima.core.mapper" targetProject="SSMSystem">    
+            <property name="enableSubPackages" value="true"/>    
+        </sqlMapGenerator>        
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.itheima.core.dao" targetProject="SSMSystem">    
+            <property name="enableSubPackages" value="true"/>    
+        </javaClientGenerator>      
+        <table tableName="user_info" domainObjectName="user_info" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        	<generatedKey column="user_id" sqlStatement="mysql" identity="true"/>
+        </table>
+        <table tableName="course_info" domainObjectName="course_info" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        	<generatedKey column="co_id" sqlStatement="mysql" identity="true"/>
+        </table>
+        <table tableName="course_detail_info" domainObjectName="course_detail_info" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        	<generatedKey column="de_id" sqlStatement="mysql" identity="true"/>
+        </table>
+        <table tableName="log_info" domainObjectName="log_info" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        	<generatedKey column="log_id" sqlStatement="mysql" identity="true"/>
+        </table>
+        <table tableName="root_info" domainObjectName="root_info" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        	<generatedKey column="user_code" sqlStatement="mysql" identity="true"/>
+        </table>
+        <table tableName="role_info" domainObjectName="role_info" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        	<generatedKey column="r_id" sqlStatement="mysql" identity="true"/>
+        </table>
+        <table tableName="menu_info" domainObjectName="menu_info" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        	<generatedKey column="m_id" sqlStatement="mysql" identity="true"/>
+        </table>
+        </context>    
+</generatorConfiguration> 

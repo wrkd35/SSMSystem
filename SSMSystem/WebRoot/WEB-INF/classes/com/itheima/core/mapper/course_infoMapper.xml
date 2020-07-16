@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itheima.core.dao.course_infoMapper" >
+  <resultMap id="BaseResultMap" type="com.itheima.core.po.course_info" >
+    <id column="co_id" property="coId" jdbcType="INTEGER" />
+    <result column="co_code" property="coCode" jdbcType="VARCHAR" />
+    <result column="co_name" property="coName" jdbcType="VARCHAR" />
+    <result column="co_status" property="coStatus" jdbcType="INTEGER" />
+    <result column="co_credit" property="coCredit" jdbcType="REAL" />
+    <result column="co_number" property="coNumber" jdbcType="INTEGER" />
+    <result column="co_time" property="coTime" jdbcType="VARCHAR" />
+    <result column="teacher_id" property="teacherId" jdbcType="INTEGER" />
+    <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+    <result column="co_address" property="coAddress" jdbcType="VARCHAR" />
+    <result column="co_selected" property="coSelected" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    co_id, co_code, co_name, co_status, co_credit, co_number, co_time, teacher_id, teacher_name, 
+    co_address, co_selected
+  </sql>
+  <sql id = "selectCourseWhere">
+  	<where>
+      <if test="coCode != null" >
+        co_code = #{coCode,jdbcType=VARCHAR}
+      </if>
+      <if test="coName != null" >
+        and co_name = #{coName,jdbcType=VARCHAR}
+      </if>
+      <if test="coStatus != null" >
+        and co_status = #{coStatus,jdbcType=INTEGER}
+      </if>
+      <if test="coCredit != null" >
+        and co_credit = #{coCredit,jdbcType=REAL}
+      </if>
+      <if test="coNumber != null" >
+        and co_number = #{coNumber,jdbcType=INTEGER}
+      </if>
+      <if test="coTime != null" >
+        and co_time = #{coTime,jdbcType=VARCHAR}
+      </if>
+      <if test="teacherId != null" >
+        and teacher_id = #{teacherId,jdbcType=INTEGER}
+      </if>
+      <if test="teacherName != null" >
+        and teacher_name = #{teacherName,jdbcType=VARCHAR}
+      </if>
+      <if test="coAddress != null" >
+        and co_address = #{coAddress,jdbcType=VARCHAR}
+      </if>
+      <if test="coSelected != null" >
+        and co_selected = #{coSelected,jdbcType=INTEGER},
+      </if>
+  	</where>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from course_info
+    where co_id = #{coId,jdbcType=INTEGER}
+  </select>
+  <select id="selectCourse" resultMap="BaseResultMap" parameterType="com.itheima.core.po.course_info">
+    select 
+    <include refid="Base_Column_List" />
+    from course_info
+    <include refid="selectCourseWhere" />
+  </select>
+  <select id="selectCount" resultType="Integer" parameterType="com.itheima.core.po.course_info">
+    select 
+    count(*)
+    from course_info
+    <include refid="selectCourseWhere" />
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from course_info
+    where co_id = #{coId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.itheima.core.po.course_info" >
+    <selectKey resultType="java.lang.Integer" keyProperty="coId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into course_info (co_code, co_name, co_status, 
+      co_credit, co_number, co_time, 
+      teacher_id, teacher_name, co_address, 
+      co_selected)
+    values (#{coCode,jdbcType=VARCHAR}, #{coName,jdbcType=VARCHAR}, #{coStatus,jdbcType=INTEGER}, 
+      #{coCredit,jdbcType=REAL}, #{coNumber,jdbcType=INTEGER}, #{coTime,jdbcType=VARCHAR}, 
+      #{teacherId,jdbcType=INTEGER}, #{teacherName,jdbcType=VARCHAR}, #{coAddress,jdbcType=VARCHAR}, 
+      #{coSelected,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.itheima.core.po.course_info" >
+    <selectKey resultType="java.lang.Integer" keyProperty="coId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into course_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="coCode != null" >
+        co_code,
+      </if>
+      <if test="coName != null" >
+        co_name,
+      </if>
+      <if test="coStatus != null" >
+        co_status,
+      </if>
+      <if test="coCredit != null" >
+        co_credit,
+      </if>
+      <if test="coNumber != null" >
+        co_number,
+      </if>
+      <if test="coTime != null" >
+        co_time,
+      </if>
+      <if test="teacherId != null" >
+        teacher_id,
+      </if>
+      <if test="teacherName != null" >
+        teacher_name,
+      </if>
+      <if test="coAddress != null" >
+        co_address,
+      </if>
+      <if test="coSelected != null" >
+        co_selected,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="coCode != null" >
+        #{coCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coName != null" >
+        #{coName,jdbcType=VARCHAR},
+      </if>
+      <if test="coStatus != null" >
+        #{coStatus,jdbcType=INTEGER},
+      </if>
+      <if test="coCredit != null" >
+        #{coCredit,jdbcType=REAL},
+      </if>
+      <if test="coNumber != null" >
+        #{coNumber,jdbcType=INTEGER},
+      </if>
+      <if test="coTime != null" >
+        #{coTime,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="coAddress != null" >
+        #{coAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="coSelected != null" >
+        #{coSelected,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.itheima.core.po.course_info" >
+    update course_info
+    <set >
+      <if test="coCode != null" >
+        co_code = #{coCode,jdbcType=VARCHAR},
+      </if>
+      <if test="coName != null" >
+        co_name = #{coName,jdbcType=VARCHAR},
+      </if>
+      <if test="coStatus != null" >
+        co_status = #{coStatus,jdbcType=INTEGER},
+      </if>
+      <if test="coCredit != null" >
+        co_credit = #{coCredit,jdbcType=REAL},
+      </if>
+      <if test="coNumber != null" >
+        co_number = #{coNumber,jdbcType=INTEGER},
+      </if>
+      <if test="coTime != null" >
+        co_time = #{coTime,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        teacher_id = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherName != null" >
+        teacher_name = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="coAddress != null" >
+        co_address = #{coAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="coSelected != null" >
+        co_selected = #{coSelected,jdbcType=INTEGER},
+      </if>
+    </set>
+    where co_id = #{coId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.itheima.core.po.course_info" >
+    update course_info
+    set co_code = #{coCode,jdbcType=VARCHAR},
+      co_name = #{coName,jdbcType=VARCHAR},
+      co_status = #{coStatus,jdbcType=INTEGER},
+      co_credit = #{coCredit,jdbcType=REAL},
+      co_number = #{coNumber,jdbcType=INTEGER},
+      co_time = #{coTime,jdbcType=VARCHAR},
+      teacher_id = #{teacherId,jdbcType=INTEGER},
+      teacher_name = #{teacherName,jdbcType=VARCHAR},
+      co_address = #{coAddress,jdbcType=VARCHAR},
+      co_selected = #{coSelected,jdbcType=INTEGER}
+    where co_id = #{coId,jdbcType=INTEGER}
+  </update>
+  <update id="caozuocourse" parameterType="java.lang.Integer">
+  	update course_info
+  	set co_status = #{a,jdbcType=INTEGER}
+  	where co_status = #{b,jdbcType=INTEGER}
+  </update>
+</mapper>

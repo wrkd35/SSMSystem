@@ -1,0 +1,48 @@
+@CHARSET "UTF-8";
+a{
+     color:black;
+     text-decoration:none;
+  }
+  a:hover{
+     color:red;
+     text-decoration:none;
+  }
+  #center_A {
+	clear: both;
+	width: 100%;
+}
+  .center_A1 {
+	background-color: #F90;
+	height: 50px;
+	width: 100%;
+}
+ .center_A11 {
+    float:left;
+	height: 50px;
+	width: 20%;
+}
+.center_A12 {
+    float:left;
+	height: 50px;
+	width: 12%;
+	text-align:center;
+	line-height:50px;
+}
+  #style {
+	font-size: xx-large;
+	font-weight: bold;
+
+	color: #FFF;
+	font-family: "Arial Black", Gadget, sans-serif;
+}
+.center_A2 {
+    float:left;
+	height: 400px;
+	width: 35%;
+}
+.center_A21 {
+    float:left;
+	height: 400px;
+	width: 50%;
+	text-align:center;
+}

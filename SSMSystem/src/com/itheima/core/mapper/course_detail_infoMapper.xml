@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itheima.core.dao.course_detail_infoMapper" >
+  <resultMap id="BaseResultMap" type="com.itheima.core.po.course_detail_info" >
+    <id column="de_id" property="deId" jdbcType="INTEGER" />
+    <result column="co_id" property="coId" jdbcType="INTEGER" />
+    <result column="student_id" property="studentId" jdbcType="INTEGER" />
+    <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+    <result column="teacher_id" property="teacherId" jdbcType="INTEGER" />
+    <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+    <result column="de_score" property="deScore" jdbcType="REAL" />
+    <result column="de_status" property="deStatus" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    de_id, co_id, student_id, student_name, teacher_id, teacher_name, de_score, de_status
+  </sql>
+  <sql id = "selectdetailWhere">
+  	<where>
+  	  <if test="coId != null" >
+        co_id = #{coId,jdbcType=INTEGER}
+      </if>
+      <if test="studentId != null" >
+        and student_id = #{studentId,jdbcType=INTEGER}
+      </if>
+      <if test="studentName != null" >
+        and student_name = #{studentName,jdbcType=VARCHAR}
+      </if>
+      <if test="teacherId != null" >
+        and teacher_id = #{teacherId,jdbcType=INTEGER}
+      </if>
+      <if test="teacherName != null" >
+        and teacher_name = #{teacherName,jdbcType=VARCHAR}
+      </if>
+      <if test="deScore != null" >
+        and de_score = #{deScore,jdbcType=REAL}
+      </if>
+      <if test="deStatus != null" >
+        and de_status = #{deStatus,jdbcType=INTEGER}
+      </if>
+  	</where>
+  </sql>
+  <sql id = "selectD">
+  	<where>
+  	  <if test="coId != null" >
+        co_id = #{coId,jdbcType=INTEGER}
+      </if>
+      <if test="studentId != null" >
+        and student_id = #{studentId,jdbcType=INTEGER}
+      </if>
+      <if test="studentName != null" >
+        and student_name = #{studentName,jdbcType=VARCHAR}
+      </if>
+      <if test="teacherId != null" >
+        and teacher_id = #{teacherId,jdbcType=INTEGER}
+      </if>
+      <if test="teacherName != null" >
+        and teacher_name = #{teacherName,jdbcType=VARCHAR}
+      </if>
+      <if test="deScore != null" >
+        and de_score = #{deScore,jdbcType=REAL}
+      </if>
+      <if test="deStatus != null" >
+        and de_status != #{deStatus,jdbcType=INTEGER}
+      </if>
+  	</where>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from course_detail_info
+    where de_id = #{deId,jdbcType=INTEGER}
+  </select>
+  <select id="selectstudent" resultType="Integer" parameterType="com.itheima.core.po.course_detail_info" >
+    select 
+    count(*)
+    from course_detail_info
+    <include refid="selectdetailWhere" />
+  </select>
+  <select id="selectMycourse" resultMap="BaseResultMap" parameterType="com.itheima.core.po.course_detail_info">
+    select 
+    <include refid="Base_Column_List" />
+    from course_detail_info
+    <include refid="selectdetailWhere" />
+  </select>
+  <select id="selectCourse" resultMap="BaseResultMap" parameterType="com.itheima.core.po.course_detail_info">
+    select 
+    <include refid="Base_Column_List" />
+    from course_detail_info
+    <include refid="selectD" />
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from course_detail_info
+    where de_id = #{deId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.itheima.core.po.course_detail_info" >
+    <selectKey resultType="java.lang.Integer" keyProperty="deId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into course_detail_info (co_id, student_id, student_name, 
+      teacher_id, teacher_name, de_score, 
+      de_status)
+    values (#{coId,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{studentName,jdbcType=VARCHAR}, 
+      #{teacherId,jdbcType=INTEGER}, #{teacherName,jdbcType=VARCHAR}, #{deScore,jdbcType=REAL}, 
+      #{deStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.itheima.core.po.course_detail_info" >
+    <selectKey resultType="java.lang.Integer" keyProperty="deId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into course_detail_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="coId != null" >
+        co_id,
+      </if>
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="teacherId != null" >
+        teacher_id,
+      </if>
+      <if test="teacherName != null" >
+        teacher_name,
+      </if>
+      <if test="deScore != null" >
+        de_score,
+      </if>
+      <if test="deStatus != null" >
+        de_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="coId != null" >
+        #{coId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="deScore != null" >
+        #{deScore,jdbcType=REAL},
+      </if>
+      <if test="deStatus != null" >
+        #{deStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.itheima.core.po.course_detail_info" >
+    update course_detail_info
+    <set >
+      <if test="coId != null" >
+        co_id = #{coId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null" >
+        student_id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null" >
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        teacher_id = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherName != null" >
+        teacher_name = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="deScore != null" >
+        de_score = #{deScore,jdbcType=REAL},
+      </if>
+      <if test="deStatus != null" >
+        de_status = #{deStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where de_id = #{deId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.itheima.core.po.course_detail_info" >
+    update course_detail_info
+    set co_id = #{coId,jdbcType=INTEGER},
+      student_id = #{studentId,jdbcType=INTEGER},
+      student_name = #{studentName,jdbcType=VARCHAR},
+      teacher_id = #{teacherId,jdbcType=INTEGER},
+      teacher_name = #{teacherName,jdbcType=VARCHAR},
+      de_score = #{deScore,jdbcType=REAL},
+      de_status = #{deStatus,jdbcType=INTEGER}
+    where de_id = #{deId,jdbcType=INTEGER}
+  </update>
+  <update id="updateScore" parameterType="com.itheima.core.po.course_detail_info" >
+    update course_detail_info
+    set
+    de_score = #{deScore,jdbcType=REAL}
+    where co_id = #{coId,jdbcType=INTEGER}
+    and student_id = #{studentId,jdbcType=INTEGER}
+  </update>
+  <update id="caozuodetail" parameterType="java.lang.Integer">
+  	update course_detail_info
+  	set de_status = #{a,jdbcType=INTEGER}
+  	where de_status = #{b,jdbcType=INTEGER}
+  </update>
+</mapper>

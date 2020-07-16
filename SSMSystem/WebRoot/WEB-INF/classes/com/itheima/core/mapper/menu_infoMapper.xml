@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itheima.core.dao.menu_infoMapper" >
+  <resultMap id="BaseResultMap" type="com.itheima.core.po.menu_info" >
+    <id column="m_id" property="mId" jdbcType="INTEGER" />
+    <result column="m_url" property="mUrl" jdbcType="VARCHAR" />
+    <result column="m_title" property="mTitle" jdbcType="VARCHAR" />
+    <result column="m_status" property="mStatus" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    m_id, m_url, m_title, m_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from menu_info
+    where m_id = #{mId,jdbcType=INTEGER}
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from menu_info
+    where m_id = #{mId,jdbcType=INTEGER} and m_status = #{mStatus,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from menu_info
+    where m_id = #{mId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.itheima.core.po.menu_info" >
+    <selectKey resultType="java.lang.Integer" keyProperty="mId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into menu_info (m_url, m_title, m_status
+      )
+    values (#{mUrl,jdbcType=VARCHAR}, #{mTitle,jdbcType=VARCHAR}, #{mStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.itheima.core.po.menu_info" >
+    <selectKey resultType="java.lang.Integer" keyProperty="mId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into menu_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mUrl != null" >
+        m_url,
+      </if>
+      <if test="mTitle != null" >
+        m_title,
+      </if>
+      <if test="mStatus != null" >
+        m_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mUrl != null" >
+        #{mUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="mTitle != null" >
+        #{mTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mStatus != null" >
+        #{mStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.itheima.core.po.menu_info" >
+    update menu_info
+    <set >
+      <if test="mUrl != null" >
+        m_url = #{mUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="mTitle != null" >
+        m_title = #{mTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mStatus != null" >
+        m_status = #{mStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.itheima.core.po.menu_info" >
+    update menu_info
+    set m_url = #{mUrl,jdbcType=VARCHAR},
+      m_title = #{mTitle,jdbcType=VARCHAR},
+      m_status = #{mStatus,jdbcType=INTEGER}
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+</mapper>

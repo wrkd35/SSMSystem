@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itheima.core.dao.log_infoMapper" >
+  <resultMap id="BaseResultMap" type="com.itheima.core.po.log_info" >
+    <id column="log_id" property="logId" jdbcType="INTEGER" />
+    <result column="root_id" property="rootId" jdbcType="INTEGER" />
+    <result column="log_content" property="logContent" jdbcType="VARCHAR" />
+    <result column="log_time" property="logTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    log_id, root_id, log_content, log_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from log_info
+    where log_id = #{logId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    *
+    from log_info
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from log_info
+    where log_id = #{logId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.itheima.core.po.log_info" >
+    <selectKey resultType="java.lang.Integer" keyProperty="logId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into log_info (root_id, log_content, log_time
+      )
+    values (#{rootId,jdbcType=INTEGER}, #{logContent,jdbcType=VARCHAR}, #{logTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.itheima.core.po.log_info" >
+    <selectKey resultType="java.lang.Integer" keyProperty="logId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into log_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rootId != null" >
+        root_id,
+      </if>
+      <if test="logContent != null" >
+        log_content,
+      </if>
+      <if test="logTime != null" >
+        log_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rootId != null" >
+        #{rootId,jdbcType=INTEGER},
+      </if>
+      <if test="logContent != null" >
+        #{logContent,jdbcType=VARCHAR},
+      </if>
+      <if test="logTime != null" >
+        #{logTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.itheima.core.po.log_info" >
+    update log_info
+    <set >
+      <if test="rootId != null" >
+        root_id = #{rootId,jdbcType=INTEGER},
+      </if>
+      <if test="logContent != null" >
+        log_content = #{logContent,jdbcType=VARCHAR},
+      </if>
+      <if test="logTime != null" >
+        log_time = #{logTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.itheima.core.po.log_info" >
+    update log_info
+    set root_id = #{rootId,jdbcType=INTEGER},
+      log_content = #{logContent,jdbcType=VARCHAR},
+      log_time = #{logTime,jdbcType=VARCHAR}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+</mapper>

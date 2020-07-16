@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.itheima.core.dao.role_infoMapper" >
+  <resultMap id="BaseResultMap" type="com.itheima.core.po.role_info" >
+    <id column="r_id" property="rId" jdbcType="INTEGER" />
+    <result column="user_type" property="userType" jdbcType="INTEGER" />
+    <result column="m_id" property="mId" jdbcType="INTEGER" />
+    <result column="r_status" property="rStatus" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_id, user_type, m_id, r_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from role_info
+    where r_id = #{rId,jdbcType=INTEGER}
+  </select>
+  <select id="selectRole" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from role_info
+    where user_type = #{userType,jdbcType=INTEGER} and r_status = #{rStatus,jdbcType=INTEGER}
+  </select>
+  <select id="select" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from role_info
+    where user_type = #{userType,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from role_info
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.itheima.core.po.role_info" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into role_info (user_type, m_id, r_status
+      )
+    values (#{userType,jdbcType=INTEGER}, #{mId,jdbcType=INTEGER}, #{rStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.itheima.core.po.role_info" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into role_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="mId != null" >
+        m_id,
+      </if>
+      <if test="rStatus != null" >
+        r_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userType != null" >
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="mId != null" >
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="rStatus != null" >
+        #{rStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.itheima.core.po.role_info" >
+    update role_info
+    <set >
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="mId != null" >
+        m_id = #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="rStatus != null" >
+        r_status = #{rStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.itheima.core.po.role_info" >
+    update role_info
+    set user_type = #{userType,jdbcType=INTEGER},
+      m_id = #{mId,jdbcType=INTEGER},
+      r_status = #{rStatus,jdbcType=INTEGER}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="changeRstatus" parameterType="java.lang.Integer">
+  	update role_info
+    set 
+      r_status = #{rStatus,jdbcType=INTEGER}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+</mapper>
